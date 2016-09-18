@@ -22,9 +22,13 @@ class MyApp {
     this.initializeApp();
 
     // set our app's pages
-    this.pages = [
-      { title: 'Hello Ionic', component: HelloIonicPage },
-      { title: 'My First List', component: ListPage }
+    this.pages = [ { 
+        title: 'Hello Ionic',
+        component: HelloIonicPage
+      }, {
+        title: 'My First List',
+        component: ListPage
+      }
     ];
   }
 
