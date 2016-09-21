@@ -1,0 +1,4 @@
+- hae aineskuvat wikistä
+- ainesosien määrät ja yksiköt
+- check kärryyn
+- palvelin

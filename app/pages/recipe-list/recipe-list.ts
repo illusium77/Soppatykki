@@ -1,22 +1,26 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from 'ionic-angular';
+
+import { Recipe } from '../../models/recipe';
+import { RecipeDetail } from '../recipe-detail/recipe-detail';
 
 @Component({
     templateUrl: 'build/pages/recipe-list/recipe-list.html'
 })
 export class RecipeList implements OnInit {
 
-    // recipes: string[];
-    recipes: Array<{ name: string, ingredients: string[] }>;
+    // recipes: Array<{ name: string, ingredients: string[] }>;
+    recipes: Array<Recipe>;
 
-    constructor() {
-        // this.recipes = ['Soppa', 'Muusi'];
+    constructor(public navCtrl: NavController) {
+
         this.recipes = [{
             name: 'Soppa',
-            ingredients: []
+            ingredients: [{ name: 'Pottu'}, { name: 'Makkara'}, { name: 'Porkkana'}]
         }, {
-            name: 'Muusi',
-            ingredients: []
-        }];
+                name: 'Muusi',
+                ingredients: []
+            }];
     }
 
     ngOnInit() {
@@ -24,15 +28,17 @@ export class RecipeList implements OnInit {
     }
 
     onSelected(recipe) {
+        this.navCtrl.push(RecipeDetail, {
+            recipe: recipe
+        });
 
     }
 
     onAdd() {
+        let newRecipe = new Recipe;
+        newRecipe.name = 'Karvapulla';
+        newRecipe.ingredients = [];
 
-        this.recipes.push({
-            name: 'Karvapulla',
-            ingredients: []
-        });
+        this.recipes.push(newRecipe);
     }
-
 }

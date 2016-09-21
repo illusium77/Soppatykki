@@ -8,6 +8,7 @@
 </ion-header>
 
 <ion-content>
+
     <ion-list>
         <button ion-item *ngFor="let recipe of recipes" (click)="onSelected(recipe)">
         {{recipe.name}}
@@ -17,11 +18,9 @@
 </ion-content>
 
 <ion-footer>
-    <ion-toolbar>
-        <ion-buttons end>
-            <button  (click)="onAdd()">                
-                <ion-icon name="add-circle"></ion-icon>
-            </button>
-        </ion-buttons>
-    </ion-toolbar>
+    <ion-buttons end>
+        <button large secondary clear secondary round (click)="onAdd()">                
+            <ion-icon name="add-circle"></ion-icon>
+        </button>
+    </ion-buttons>
 </ion-footer>
