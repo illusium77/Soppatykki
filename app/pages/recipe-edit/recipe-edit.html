@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{title}}</ion-title>
+        <ion-buttons end>
+            <button (click)="onSave()" [disabled]="!canSave()">
+                <ion-icon name="checkmark-circle"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-list>
+
+        <ion-list-header>
+            Reseptin nimi
+        </ion-list-header>
+
+        <ion-item>
+            <ion-input [(ngModel)]="selectedRecipe.name" type="text" placeholder="Anna nimi"></ion-input>
+        </ion-item>
+
+
+        <ion-list-header>
+            Ainekset
+        </ion-list-header>
+
+        <ion-item *ngFor="let ingredient of selectedRecipe.ingredients">
+            <ion-input [(ngModel)]="ingredient.name" type="text" placeholder="Anna ainesosa"></ion-input>
+        </ion-item>
+    </ion-list>
+
+    <ion-buttons end>
+        <button full (click)="onAddIngredient()" [disabled]="!canAdd()">Lisää</button>
+    </ion-buttons>
+
+</ion-content>

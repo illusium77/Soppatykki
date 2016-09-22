@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
+
+import { RecipeEdit } from '../recipe-edit/recipe-edit';
 
 import { Recipe } from '../../models/recipe';
 import { Ingredient } from '../../models/ingredient';
@@ -12,17 +14,16 @@ export class RecipeDetail implements OnInit {
 
     selectedRecipe: Recipe;
 
-    constructor(navParams: NavParams) {
+    constructor(navParams: NavParams, public navCtrl: NavController) {
         this.selectedRecipe = navParams.get('recipe');
     }
 
     ngOnInit() {
-
     }
 
-    onAdd() {
-        this.selectedRecipe.ingredients.push(
-            new Ingredient);
+    onEdit() {
+        this.navCtrl.push(RecipeEdit, {
+            recipe: this.selectedRecipe
+        });       
     }
-
 }

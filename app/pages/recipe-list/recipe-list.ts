@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 
 import { Recipe } from '../../models/recipe';
 import { RecipeDetail } from '../recipe-detail/recipe-detail';
+import { RecipeEdit } from '../recipe-edit/recipe-edit';
 
 @Component({
     templateUrl: 'build/pages/recipe-list/recipe-list.html'
@@ -31,14 +32,9 @@ export class RecipeList implements OnInit {
         this.navCtrl.push(RecipeDetail, {
             recipe: recipe
         });
-
     }
 
     onAdd() {
-        let newRecipe = new Recipe;
-        newRecipe.name = 'Karvapulla';
-        newRecipe.ingredients = [];
-
-        this.recipes.push(newRecipe);
+        this.navCtrl.push(RecipeEdit);
     }
 }
