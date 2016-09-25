@@ -2,20 +2,27 @@ import {Component, ViewChild} from '@angular/core';
 import {ionicBootstrap, Platform, MenuController, Nav} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {HelloIonicPage} from './pages/hello-ionic/hello-ionic';
+
+import { RecipeService } from './services/recipe.service';
+
 import {ListPage} from './pages/list/list';
 import {RecipeList} from './pages/recipe-list/recipe-list';
+import {RecipeDetail} from './pages/recipe-detail/recipe-detail';
+import {RecipeEdit} from './pages/recipe-edit/recipe-edit';
 
 
 @Component({
-  templateUrl: 'build/app.html'
+  templateUrl: 'build/app.html',
+  providers: [RecipeService]
 })
+
 class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // make HelloIonicPage the root (or first) page
   rootPage: any = RecipeList;
   // rootPage: any = HelloIonicPage;
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{ title: string, component: any }>;
 
   constructor(
     public platform: Platform,
@@ -24,10 +31,10 @@ class MyApp {
     this.initializeApp();
 
     // set our app's pages
-    this.pages = [ { 
-        title: 'Reseptit',
-        component: RecipeList
-      }
+    this.pages = [{
+      title: 'Reseptit',
+      component: RecipeList
+    }
     ];
   }
 

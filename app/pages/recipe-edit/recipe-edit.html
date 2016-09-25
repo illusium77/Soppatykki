@@ -18,7 +18,7 @@
         </ion-list-header>
 
         <ion-item>
-            <ion-input [(ngModel)]="selectedRecipe.name" type="text" placeholder="Anna nimi"></ion-input>
+            <ion-input [(ngModel)]="recipeUnderEdit.name" type="text" placeholder="Anna nimi"></ion-input>
         </ion-item>
 
 
@@ -26,7 +26,7 @@
             Ainekset
         </ion-list-header>
 
-        <ion-item *ngFor="let ingredient of selectedRecipe.ingredients">
+        <ion-item *ngFor="let ingredient of recipeUnderEdit.ingredients">
             <ion-input [(ngModel)]="ingredient.name" type="text" placeholder="Anna ainesosa"></ion-input>
         </ion-item>
     </ion-list>

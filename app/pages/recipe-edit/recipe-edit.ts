@@ -1,29 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { RecipeService } from '../../services/recipe.service';
+
 import { Recipe } from '../../models/recipe';
 import { Ingredient } from '../../models/ingredient';
-
 
 @Component({
     templateUrl: 'build/pages/recipe-edit/recipe-edit.html'
 })
 export class RecipeEdit implements OnInit {
 
-    selectedRecipe: Recipe;
+    originalRecipe: Recipe;
+    recipeUnderEdit: Recipe;
     title: string;
 
-    constructor(navParams: NavParams, public navCtrl: NavController) {
+    constructor(
+        private navParams: NavParams,
+        private navCtrl: NavController,
+        private recipeService: RecipeService) {
 
-        let alkupRecipe = navParams.get('recipe');
+        this.originalRecipe = navParams.get('recipe');
 
-        if (!alkupRecipe) {
-
+        if (!this.originalRecipe) {
             this.title = "Uusi resepti";
-            this.selectedRecipe = new Recipe;
+            this.recipeUnderEdit = new Recipe;
         } else {
             this.title = "Muokkaa reseptiä";
-            this.selectedRecipe = alkupRecipe.clone();
+            this.recipeUnderEdit = this.originalRecipe.clone();
         }
     }
 
@@ -31,19 +35,27 @@ export class RecipeEdit implements OnInit {
     }
 
     canAdd() {
-        let hasUnnamedIngredients = this.selectedRecipe.ingredients.some(i => i.name === '');
+        let hasUnnamedIngredients = this.recipeUnderEdit.ingredients.some(i => i.name === '');
         return !hasUnnamedIngredients;
     }
 
     canSave() {
-        return this.canAdd() && this.selectedRecipe.name;
+        return this.canAdd() && this.recipeUnderEdit.name;
     }
 
     onAddIngredient() {
-        this.selectedRecipe.ingredients.push(new Ingredient);
-    } 
+        this.recipeUnderEdit.ingredients.push(new Ingredient);
+    }
 
     onSave() {
+
+        if (this.originalRecipe) {
+            this.recipeService.replace(this.originalRecipe, this.recipeUnderEdit);
+        } else {
+            this.recipeService.add(this.recipeUnderEdit);
+        }
+
+
         this.navCtrl.pop();
     }
 }

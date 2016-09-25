@@ -22,4 +22,13 @@ export class Recipe {
 
         return copy;
     }
+
+    update(source: Recipe) : void {
+        if (!source) {
+            return;
+        }
+
+        this.name = source.name;
+        this.ingredients = source.ingredients;
+    }
 }
