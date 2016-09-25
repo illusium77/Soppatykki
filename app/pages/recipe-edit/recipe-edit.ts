@@ -15,17 +15,15 @@ export class RecipeEdit implements OnInit {
 
     constructor(navParams: NavParams, public navCtrl: NavController) {
 
-        this.selectedRecipe = navParams.get('recipe');
+        let alkupRecipe = navParams.get('recipe');
 
-        if (!this.selectedRecipe) {
+        if (!alkupRecipe) {
 
             this.title = "Uusi resepti";
-            this.selectedRecipe = {
-                name: '',
-                ingredients: []
-            }
+            this.selectedRecipe = new Recipe;
         } else {
             this.title = "Muokkaa reseptiä";
+            this.selectedRecipe = alkupRecipe.clone();
         }
     }
 
@@ -33,19 +31,17 @@ export class RecipeEdit implements OnInit {
     }
 
     canAdd() {
-        let hasUnnamedIngredients = this.selectedRecipe.ingredients.some(i => i.name === '');        
+        let hasUnnamedIngredients = this.selectedRecipe.ingredients.some(i => i.name === '');
         return !hasUnnamedIngredients;
     }
 
     canSave() {
         return this.canAdd() && this.selectedRecipe.name;
-    }    
+    }
 
     onAddIngredient() {
-        this.selectedRecipe.ingredients.push({
-            name: ''
-        });
-    }
+        this.selectedRecipe.ingredients.push(new Ingredient);
+    } 
 
     onSave() {
         this.navCtrl.pop();

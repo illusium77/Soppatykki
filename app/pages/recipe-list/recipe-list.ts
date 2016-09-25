@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { Recipe } from '../../models/recipe';
+import { Ingredient } from '../../models/ingredient';
 import { RecipeDetail } from '../recipe-detail/recipe-detail';
 import { RecipeEdit } from '../recipe-edit/recipe-edit';
 
@@ -10,18 +11,22 @@ import { RecipeEdit } from '../recipe-edit/recipe-edit';
 })
 export class RecipeList implements OnInit {
 
-    // recipes: Array<{ name: string, ingredients: string[] }>;
-    recipes: Array<Recipe>;
+    recipes: Array<Recipe> = new Array<Recipe>();
 
     constructor(public navCtrl: NavController) {
 
-        this.recipes = [{
-            name: 'Soppa',
-            ingredients: [{ name: 'Pottu'}, { name: 'Makkara'}, { name: 'Porkkana'}]
-        }, {
-                name: 'Muusi',
-                ingredients: []
-            }];
+        let recipeA = new Recipe('Soppa');
+        recipeA.ingredients.push(
+            new Ingredient('Pottu'));
+        recipeA.ingredients.push(
+            new Ingredient('Makkara'));
+        recipeA.ingredients.push(
+            new Ingredient('Porkkana'));
+
+        this.recipes.push(recipeA);
+
+        let recipeB = new Recipe('Muusi');
+        this.recipes.push(recipeB); 
     }
 
     ngOnInit() {
