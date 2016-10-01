@@ -20,7 +20,11 @@
         <ion-item>
             <ion-input [(ngModel)]="recipeUnderEdit.name" type="text" placeholder="Anna nimi"></ion-input>
         </ion-item>
+    </ion-list>
+    
+    <br/>
 
+    <ion-list>
 
         <ion-list-header>
             Ainekset
@@ -31,10 +35,9 @@
             <ion-icon class="fa fa-minus" item-right (click)="onRemoveIngredient(ingredient)"></ion-icon>
         </ion-item>
 
+        <ion-item>
+            <ion-icon class="fa fa-plus" item-right (click)="onAddIngredient()" *ngIf="canAdd()"></ion-icon>
+        </ion-item>
     </ion-list>
-
-    <ion-buttons end>
-        <button full (click)="onAddIngredient()" [disabled]="!canAdd()">Lisää</button>
-    </ion-buttons>
 
 </ion-content>

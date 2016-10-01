@@ -35,7 +35,7 @@ export class RecipeEdit implements OnInit {
     }
 
     canAdd() {
-        let hasUnnamedIngredients = this.recipeUnderEdit.ingredients.some(i => i.name === '');
+        let hasUnnamedIngredients = this.recipeUnderEdit.ingredients.some(i => !i.name);
         return !hasUnnamedIngredients;
     }
 
