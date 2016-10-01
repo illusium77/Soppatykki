@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { NavController, NavParams, PopoverController } from 'ionic-angular';
+import { AlertController, NavController, NavParams, PopoverController } from 'ionic-angular';
 
 import { RecipeEdit } from '../recipe-edit/recipe-edit';
 import { RecipePopover } from '../recipe-popover/recipe-popover';
@@ -20,7 +20,8 @@ export class RecipeDetail implements OnInit {
         private navParams: NavParams,
         private navCtrl: NavController,
         private popoverCtrl: PopoverController,
-        private recipeService: RecipeService) {
+        private recipeService: RecipeService,
+        private alertCtrl: AlertController) {
 
         this.selectedRecipe = navParams.get('recipe');
     }
@@ -28,32 +29,38 @@ export class RecipeDetail implements OnInit {
     ngOnInit() {
     }
 
-    onDismiss(action, self) {
-        if (action === 'edit') {
-            self.navCtrl.push(RecipeEdit, {
-                recipe: self.selectedRecipe
-            });
-        } else if (action === 'delete') {
-            self.recipeService.remove(self.selectedRecipe);
-            self.navCtrl.pop();
-        }
+    onConfirmDelete(self) {
+        let confirm = self.alertCtrl.create({
+            title: 'Reseptin poisto',
+            message: 'Haluatko varmasti poistaa reseptin?',
+            buttons: [{
+                text: 'Ei',
+                handler: () => {}
+            }, {
+                text: 'Kyllä',
+                handler: () => {
+                    self.recipeService.remove(self.selectedRecipe);
+                    self.navCtrl.pop();
+                }
+            }]
+        });
+        confirm.present();
     }
 
     onShowMenu($event) {
         let popover = this.popoverCtrl.create(RecipePopover);
 
         let self = this; // on callback, this refers to popover
-        popover.onDidDismiss(function (action: string) {
-
+        popover.onDidDismiss((action: string) => {
             if (action === 'edit') {
                 self.navCtrl.push(RecipeEdit, {
                     recipe: self.selectedRecipe
                 });
             } else if (action === 'delete') {
-                self.recipeService.remove(self.selectedRecipe);
-                self.navCtrl.pop();
+                self.onConfirmDelete(self);
             }
         });
+        
 
         popover.present({
             ev: $event,
