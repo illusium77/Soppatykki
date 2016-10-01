@@ -3,7 +3,7 @@
         <ion-title>{{title}}</ion-title>
         <ion-buttons end>
             <button (click)="onSave()" [disabled]="!canSave()">
-                <ion-icon name="checkmark-circle"></ion-icon>
+                 <ion-icon class="fa fa-floppy-o"></ion-icon>
             </button>
         </ion-buttons>
     </ion-navbar>
@@ -28,7 +28,9 @@
 
         <ion-item *ngFor="let ingredient of recipeUnderEdit.ingredients">
             <ion-input [(ngModel)]="ingredient.name" type="text" placeholder="Anna ainesosa"></ion-input>
+            <ion-icon class="fa fa-minus" item-right (click)="onRemoveIngredient(ingredient)"></ion-icon>
         </ion-item>
+
     </ion-list>
 
     <ion-buttons end>

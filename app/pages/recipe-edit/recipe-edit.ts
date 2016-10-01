@@ -47,6 +47,13 @@ export class RecipeEdit implements OnInit {
         this.recipeUnderEdit.ingredients.push(new Ingredient);
     }
 
+    onRemoveIngredient(ingredient) {
+        let index = this.recipeUnderEdit.ingredients.indexOf(ingredient);
+        if (index >= 0) {
+            this.recipeUnderEdit.ingredients.splice(index, 1);
+        }     
+    }
+
     onSave() {
 
         if (this.originalRecipe) {
@@ -54,7 +61,6 @@ export class RecipeEdit implements OnInit {
         } else {
             this.recipeService.add(this.recipeUnderEdit);
         }
-
 
         this.navCtrl.pop();
     }
