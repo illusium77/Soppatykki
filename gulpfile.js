@@ -38,7 +38,7 @@ var isRelease = argv.indexOf('--release') > -1;
 
 gulp.task('watch', ['clean'], function(done){
   runSequence(
-    ['sass', 'html', 'fonts', 'scripts'],
+    ['sass', 'faCss', 'html', 'fonts', 'faFonts', 'scripts'],
     function(){
       gulpWatch('app/**/*.scss', function(){ gulp.start('sass'); });
       gulpWatch('app/**/*.html', function(){ gulp.start('html'); });
@@ -49,7 +49,7 @@ gulp.task('watch', ['clean'], function(done){
 
 gulp.task('build', ['clean'], function(done){
   runSequence(
-    ['sass', 'html', 'fonts', 'scripts'],
+    ['sass', 'faCss', 'html', 'fonts', 'faFonts', 'scripts'],
     function(){
       buildBrowserify({
         minify: isRelease,
@@ -72,3 +72,13 @@ gulp.task('clean', function(){
   return del('www/build');
 });
 gulp.task('lint', tslint);
+
+/* Font awesome install tasks */
+gulp.task('faCss', function(){   
+     return gulp.src('node_modules/font-awesome/css/font-awesome.min.css')
+         .pipe(gulp.dest('www/build/css'))    
+});
+gulp.task('faFonts', function(){   
+    return gulp.src('node_modules/font-awesome/fonts/**/*.+(eot|svg|ttf|woff)')
+         .pipe(gulp.dest('www/build/fonts'))    
+});
