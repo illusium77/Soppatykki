@@ -79,6 +79,6 @@ gulp.task('faCss', function(){
          .pipe(gulp.dest('www/build/css'))    
 });
 gulp.task('faFonts', function(){   
-    return gulp.src('node_modules/font-awesome/fonts/**/*.+(eot|svg|ttf|woff)')
+    return gulp.src('node_modules/font-awesome/fonts/**/*.+(eot|svg|ttf|woff|woff2)')
          .pipe(gulp.dest('www/build/fonts'))    
 });
